@@ -1,7 +1,12 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
 // Load and process the data
-let rawData = await d3.csv("./data/annual_hunting_season_environmental_conditions.csv");
+let rawData = await d3.csv("./dsc_106_project_3_checkpoint/data/annual_hunting_season_environmental_conditions.csv");
+
+// local
+// let rawData = await d3.csv("/data/annual_hunting_season_environmental_conditions.csv");
+
+
 
 // Get available features from data
 const features = Object.keys(rawData[0]);
