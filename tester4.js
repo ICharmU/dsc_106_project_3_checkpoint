@@ -649,17 +649,17 @@ async function drawMap() {
 
       function startPlayback() {
         if (isPlaying) return;
-        // Always start playback from 1960 when Play is pressed (if available),
-        // so playback shows the full timeline from the beginning.
-        {
-          const startYear = availableYears.includes(1960) ? 1960 : minYear;
-          currentYear = startYear;
-          if (!yearSlider.empty()) {
-            yearSlider.node().value = startYear;
-            yearValueSpan.text(startYear);
-            renderForYear(startYear);
-            if (typeof plotPoints === 'function') plotPoints(startYear);
-          }
+        // Start playback from the currently-selected year (slider/currentYear).
+        // If currentYear isn't set or isn't in availableYears, fall back to 1960 or minYear.
+        const startYear = (typeof currentYear !== 'undefined' && currentYear != null)
+          ? currentYear
+          : (availableYears.includes(1960) ? 1960 : minYear);
+        currentYear = startYear;
+        if (!yearSlider.empty()) {
+          yearSlider.node().value = startYear;
+          yearValueSpan.text(startYear);
+          renderForYear(startYear);
+          if (typeof plotPoints === 'function') plotPoints(startYear);
         }
         const years = availableYears && availableYears.length ? availableYears : [selectedYear];
         const total = years.length;
